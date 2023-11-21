@@ -17,7 +17,7 @@ pipeline {
             steps {
                 sh 'mvn pmd:pmd'
             }
-            podt {
+            post {
               always {
                 recordIssues enabledForFailure:true, tool: pmdParser (pattern: '**/target/pmd.xml')
               }
