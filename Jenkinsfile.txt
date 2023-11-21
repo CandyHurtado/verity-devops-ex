@@ -12,14 +12,26 @@ pipeline {
         }
 		//Code ends for stage Clean
 		
-		
 		//Code starts for stage PMD
 		stage('PMD') {
             steps {
                 sh 'mvn pmd:pmd'
             }
+            podt {
+              always {
+                recordIssues enabledForFailure:true, tool: pmdParser (pattern: '**/target/pmd.xml')
+              }
+            }
         }
 		//Code ends for stage PMD
+
+    //Code starts for stage Compile
+		stage('Compile') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
+		//Code ends for stage Compile
 	
 		// ******ALL CODE TO BE ADDED ABOVE THIS COMMENT******
     }
